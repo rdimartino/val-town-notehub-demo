@@ -6,7 +6,9 @@
 
 #define LED_PIN 13
 
+// Please change
 #define PRODUCT_UID "dev.dimartino.robert:valtownnotehubdemo"
+
 #define INBOUND_NOTE_FILE "commands.qis"
 #define OUTBOUND_NOTE_FILE "output.qos"
 #define OUTBOUND_HEALTH_FILE "health.qos"
