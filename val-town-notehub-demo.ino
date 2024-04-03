@@ -15,6 +15,7 @@
 #define HUB_SET_RETRY_SECONDS 10
 
 Notecard notecard;
+Config config;
 
 void notecard_config() {
   J *req = notecard.newRequest("hub.set");
@@ -31,11 +32,19 @@ void notecard_config() {
   }
 }
 
+void notecard_config_wifi() {
+  J *req = notecard.newRequest("card.wifi");
+  JAddStringToObject(req, "ssid", "<ssid>");
+  JAddStringToObject(req, "password", "<password>");
+  notecard.sendRequest(req);
+}
+
 void setup_notecard() {
   notecard.setDebugOutputStream(usbSerial);
   notecard.begin();
 
   notecard_config();
+  // notecard_config_wifi();
 
   // Notify the Notehub of our current firmware version
   J *req = notecard.newRequest("dfu.status");
@@ -161,6 +170,9 @@ void setup() {
 
   setup_notecard();
   dfuShowPartitions();
+
+  // Force a sync of env vars during setup
+  sync_environment(true);
 }
 
 void loop() {
@@ -177,8 +189,10 @@ void loop() {
     report_health();
   }
 
+  sync_environment(false);
+
   // Poll subsystems that need periodic servicing
   dfuPoll(false);
 
-  delay(10 * ms1Sec);
+  delay(config.loopDelay * ms1Sec);
 }

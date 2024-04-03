@@ -30,3 +30,11 @@ const char *productVersionShort();
 void dfuShowPartitions(void);
 void dfuPoll(bool force);
 
+// environment.cpp
+struct Config {
+  int loopDelay = 5;
+};
+
+extern Config config;
+void sync_environment(bool force = false);
+

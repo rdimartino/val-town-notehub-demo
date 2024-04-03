@@ -56,6 +56,8 @@ The microcontroller also pushes notes to Notehub:
 
 In Notehub, routes need to be configured to handle these events to forward them to Val Town for processing.
 
+The Notehub environment variable `loopDelay` can be changed to control how the microcontroller (once it has synced) waits between loop iterations.
+
 See the `notehub_demo_setup`, `notehub_demo_webhook`, and `notehub` vals for more information.
 
 ## Arduino Sketch
